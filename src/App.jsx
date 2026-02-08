@@ -1,35 +1,27 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import Header from "./components/Header";
+import SearchBar from "./components/SearchBar";
+import ProjectList from "./components/ProjectList";
+import AddProjectForm from "./components/AddProjectForm";
+import { initialProjects } from "./data/projects";
+import "./styles/styles.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [projects, setProjects] =useState(initialProjects);
+  const [search, setSearch] = useState("");
+
+  const addProject = (project) => { setProjects([...projects, {...project, id: Date.now() }])};
+
+  const filteredprojects = projects.filter ((project)=> project.title.lowerCase().includes(search.totalCase()));
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+    <Header />
+    <SearchBar search={setSearch} />
+    <ProjectList projects={filteredprojects} />
+    <AddProjectForm addProject={addProject} />
     </>
-  )
+  );
 }
 
 export default App
