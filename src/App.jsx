@@ -12,7 +12,7 @@ function App() {
 
   const addProject = (project) => { setProjects([...projects, {...project, id: Date.now() }])};
 
-  const filteredprojects = projects.filter ((project)=> project.title.lowerCase().includes(search.totalCase()));
+  const filteredprojects = projects.filter ((project)=> project.title.toLowerCase().includes(search.totalCase()));
 
   return (
     <>
@@ -25,3 +25,7 @@ function App() {
 }
 
 export default App
+
+// projects.filter((project) =>
+  // project.title?.toLowerCase().includes(search.toLowerCase()))
+
